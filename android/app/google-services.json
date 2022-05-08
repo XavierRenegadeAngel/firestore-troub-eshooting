@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761134670662",
+    "project_id": "firestore-troubleshooting",
+    "storage_bucket": "firestore-troubleshooting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761134670662:android:a340a8d9011adc2ceb7b47",
+        "android_client_info": {
+          "package_name": "com.example.firestore_troubleshooting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761134670662-isrnga4fl2slv0i83kulfutafgn5cphl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3qUan4Wd3QzX9UeVSAa0U585sETCx3RI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761134670662-isrnga4fl2slv0i83kulfutafgn5cphl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
