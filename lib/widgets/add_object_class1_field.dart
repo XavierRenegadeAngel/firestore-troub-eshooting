@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_troubleshooting/models/main_topic.dart';
+import 'package:firestore_troubleshooting/models/class1.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-class AddMainTopic extends StatelessWidget {
-  AddMainTopic({Key? key}) : super(key: key);
+class AddObjectClass1Field extends StatelessWidget {
+  AddObjectClass1Field({Key? key}) : super(key: key);
   TextEditingController textController1 = TextEditingController();
 
   @override
@@ -34,7 +34,7 @@ Future createClass1Object(name) async {
       .doc(AuthService().currentUser?.uid)
       .collection('Class 1 Objects')
       .doc();
-  final class1Object = MainTopic(name: name, docID: class1_ref.id);
+  final class1Object = Class1(name: name, docID: class1_ref.id);
   final json = class1Object.toJson();
   await class1_ref.set(json);
 }

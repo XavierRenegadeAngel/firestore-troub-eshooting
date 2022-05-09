@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
-import 'package:firestore_troubleshooting/widgets/add_main_topic.dart';
+import 'package:firestore_troubleshooting/widgets/add_object_class1_field.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'models/sub_topic.dart';
+import 'models/class2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         bottom: PreferredSize(preferredSize: const Size.fromHeight(40.0),
 
-        child: AddMainTopic())
+        child: AddObjectClass1Field())
       ),
       body: Center(
         child: SingleChildScrollView(
