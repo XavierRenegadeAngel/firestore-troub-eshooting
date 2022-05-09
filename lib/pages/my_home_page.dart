@@ -2,8 +2,6 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_troubleshooting/main.dart';
-import 'package:firestore_troubleshooting/models/sub_topic.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
 import 'package:firestore_troubleshooting/widgets/add_main_topic.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +16,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  late var main_topics;
+  late var class2Data;
+
   TextEditingController textController1 = TextEditingController();
   final Stream<QuerySnapshot> class1Stream = FirebaseFirestore.instance
       .collection('users')
@@ -46,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               StreamBuilder(
                   stream: class1Stream,
+                  initialData: const [],
                   builder: (context, class1Snapshot) {
                     if (class1Snapshot.hasError) {
                       return const Text('client snapshot has error');
@@ -54,24 +57,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         ConnectionState.waiting) {
                       return const CircularProgressIndicator();
                     }
-                    class1Data = class1Snapshot.requireData;
+                    main_topics = class1Snapshot.data;
                     return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: class1Data.size,
-                        itemBuilder: (context, class1_index) {
+                        itemCount: main_topics.size,
+                        itemBuilder: (context, mainTopicIndex) {
+
                           final Stream<QuerySnapshot> class2Stream =
                           FirebaseFirestore.instance
                               .collection('users')
                               .doc(AuthService().currentUser?.uid)
                               .collection('Class 1 Objects')
-                              .doc(class1Data.docs[class1_index]['docID'])
+                              .doc(main_topics.docs[mainTopicIndex]['docID'])
                               .collection('Class 2 Objects')
                               .snapshots();
-                          return class1Data.size > 0
+                          return main_topics.size > 0
                               ? ExpansionTile(
                             initiallyExpanded: true,
                             title:
-                            Text(class1Data.docs[class1_index]['name']),
+                            Text(main_topics.docs[mainTopicIndex]['name']),
                             children: [
                               Row(children: [
                                 Expanded(
@@ -82,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Expanded(
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          createClass2Object(
-                                              textController1.text,
-                                              class1_index);
-                                          textController1.clear();
-                                          setState(() {});
+                                          // createClass2Object(
+                                          //     textController1.text,
+                                          //     mainTopicIndex);
+                                          // textController1.clear();
+                                          // setState(() {});
                                         },
                                         child: const Text('Add Object')))
                               ]),
