@@ -10,7 +10,8 @@ void main() async {
   runApp(const MyApp());
 }
 
-
+late var class1Data;
+late var class2Data;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
