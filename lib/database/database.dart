@@ -34,11 +34,12 @@ class Database {
     return Future.value();
   }
 
-  Future<void> deleteMainTopic({required MainTopic mainTopic}) {
+  Future<void> deleteMainTopic({required MainTopic mainTopic}) async {
     try {
       final docReference =
-      _fireStore.doc('users/$userID/Class 1 Objects/${mainTopic.name}');
-      return docReference.delete();
+      _fireStore.doc('users/$userID/Class 1 Objects/${mainTopic.docID}');
+      await docReference.delete();
+      print('Deleted doc: ${docReference.path}');
     } on FirebaseException catch (error) {
       print('Error deleting document, ${error.code}, ${error.message}, ${error.stackTrace}');
     } on Exception catch (error){
