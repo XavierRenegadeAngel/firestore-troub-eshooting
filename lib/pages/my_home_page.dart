@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_troubleshooting/database/database.dart';
 import 'package:firestore_troubleshooting/models/main_topic.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
-import 'package:firestore_troubleshooting/widgets/add_main_topic.dart';
+import 'package:firestore_troubleshooting/widgets/add_topic_field_widget.dart';
 import 'package:firestore_troubleshooting/widgets/main_topic_expansion_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(32.0),
-          child: AddTopicWidget(
+          child: AddTopicFieldWidget(
             onPressed: (mainTopicName) async {
               await widget.database.setMainTopic(
                 mainTopic: MainTopic(

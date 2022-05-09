@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddTopicWidget extends StatelessWidget {
-  AddTopicWidget({Key? key, required this.onPressed, required this.buttonText})
+class AddTopicFieldWidget extends StatelessWidget {
+  AddTopicFieldWidget({Key? key, required this.onPressed, required this.buttonText})
       : super(key: key);
   TextEditingController textController1 = TextEditingController();
   final Function(String) onPressed;
@@ -15,10 +15,10 @@ class AddTopicWidget extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              decoration: InputDecoration.collapsed(
-                  hintText: 'Main topic name..',
+              decoration: InputDecoration(
+                  hintText: '...',
                   filled: true,
-                  border: const UnderlineInputBorder(),
+                  fillColor: Theme.of(context).primaryColor,
                   hintStyle: Theme.of(context).textTheme.subtitle1),
               controller: textController1,
             ),
