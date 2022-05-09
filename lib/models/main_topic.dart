@@ -5,7 +5,7 @@ class MainTopic {
   MainTopic({required this.name, required this.docID});
 
   Map<String, dynamic> toJson() => {'name': name, 'docID': docID};
-  MainTopic fromJson(Map<String, dynamic> json) =>
+ static  MainTopic fromJson(Map<String, dynamic> json) =>
       MainTopic(name: ['name'], docID: ['docID']);
 }
 

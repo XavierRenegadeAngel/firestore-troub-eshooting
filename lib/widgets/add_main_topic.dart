@@ -17,7 +17,7 @@ class AddMainTopic extends StatelessWidget {
 
                 hintText: 'Main topic name..',
                 filled: true,
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 hintStyle: Theme.of(context).textTheme.subtitle1),
             controller: textController1,
           ),
