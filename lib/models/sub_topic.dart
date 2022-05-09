@@ -1,12 +1,15 @@
 
 
 class SubTopic {
-  final String name;
-  final String docID;
+  late var name;
+  late var docID;
   SubTopic({required this.name, required this.docID});
+
   Map<String, dynamic> toJson() => {'name': name, 'docID': docID};
-   static SubTopic fromJson(Map<String, dynamic> json) =>
-      SubTopic(name: json['name'], docID: json['docID']);
+   SubTopic fromJson(Map<String, dynamic> json) =>
+      SubTopic(name: ['name'], docID: ['docID']);
+
+
 }
 
 // Future createClass2Object(name, class1_index) async {

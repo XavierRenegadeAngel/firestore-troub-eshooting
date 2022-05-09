@@ -1,7 +1,5 @@
 import 'package:firestore_troubleshooting/database/database.dart';
 import 'package:firestore_troubleshooting/models/main_topic.dart';
-import 'package:firestore_troubleshooting/models/sub_topic.dart';
-import 'package:firestore_troubleshooting/widgets/add_topic_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainTopicExpansionTile extends StatefulWidget {
@@ -38,16 +36,23 @@ class _MainTopicExpansionTileState extends State<MainTopicExpansionTile> {
         initiallyExpanded: true,
         title: Text(widget.mainTopic.name),
         children: [
-          AddTopicFieldWidget(
-              onPressed: (subTopicName) {
-                widget.database.setSubTopic(
-                  mainTopic: widget.mainTopic,
-                  subTopic: SubTopic(
-                      name: subTopicName,
-                      docID: DateTime.now().toIso8601String()),
-                );
-              },
-              buttonText: 'Add subtopic'),
+          Row(children: [
+            Expanded(
+              child: TextField(
+                controller: _subTopicFieldController,
+              ),
+            ),
+            Expanded(
+                child: ElevatedButton(
+                    onPressed: () {
+                      // createClass2Object(
+                      //     textController1.text,
+                      //     mainTopicIndex);
+                      // textController1.clear();
+                      // setState(() {});
+                    },
+                    child: const Text('Add Object')))
+          ]),
           // StreamBuilder(
           //     stream: class2Stream,
           //     builder: (context, class2Snapshot) {
