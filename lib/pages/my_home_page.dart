@@ -17,7 +17,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  late var mainTopics;
+  late var class2Data;
   TextEditingController textController1 = TextEditingController();
   final Stream<QuerySnapshot> class1Stream = FirebaseFirestore.instance
       .collection('users')
@@ -30,23 +31,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(32.0),
-          child: AddTopicWidget(
-            onPressed: (mainTopicName) async {
-              await widget.database.setMainTopic(
-                mainTopic: MainTopic(
-                  name: mainTopicName,
-                  docID: DateTime.now().toIso8601String(),
-                ),
-              );
-            },
-            buttonText: 'Add main topic',
-          ),
-        ),
-      ),
+          title: Text(widget.title),
+          centerTitle: true,
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(32.0),
+              child: AddMainTopic())),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
