@@ -36,38 +36,40 @@ class _MyHomePageState extends State<MyHomePage> {
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(32.0),
               child: AddMainTopic())),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            StreamBuilder<List<MainTopic>>(
-                stream: widget.database.mainTopicsStream(),
-                initialData: const <MainTopic>[],
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Text('client snapshot has error');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text('Empty content'),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              StreamBuilder<List<MainTopic>>(
+                  stream: widget.database.mainTopicsStream(),
+                  initialData: const <MainTopic>[],
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('client snapshot has error');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: Text('Empty content'),
+                      );
+                    }
+                    final mainTopics = snapshot.data ?? [];
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: mainTopics.length,
+                      itemBuilder: (context, mainTopicIndex) {
+                        final mainTopic = mainTopics[mainTopicIndex];
+                        return MainTopicExpansionTile(
+                            mainTopic: mainTopic, database: widget.database);
+                      },
                     );
-                  }
-                  final mainTopics = snapshot.data ?? [];
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: mainTopics.length,
-                    itemBuilder: (context, mainTopicIndex) {
-                      final mainTopic = mainTopics[mainTopicIndex];
-                      return MainTopicExpansionTile(
-                          mainTopic: mainTopic, database: widget.database);
-                    },
-                  );
-                }),
-          ],
+                  }),
+            ],
+          ),
         ),
       ),
     );
