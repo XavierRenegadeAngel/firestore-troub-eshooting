@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_troubleshooting/database/database.dart';
 import 'package:firestore_troubleshooting/pages/my_home_page.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +8,15 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await AuthService().getOrCreateUser();
-  runApp(const MyApp());
+  final User? _user = await AuthService().getOrCreateUser();
+  runApp(MyApp(
+    user: _user,
+  ));
 }
 
-
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.user}) : super(key: key);
+  final User? user;
 
   // This widget is the root of your application.
   @override
@@ -28,8 +31,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.grey[800],
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(title: 'Firestore Troubleshooting'),
+      home:  MyHomePage(title: 'Firestore Troubleshooting', database: Database(userID: user?.uid??''),),
     );
   }
 }
-
