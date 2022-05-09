@@ -3,6 +3,7 @@ import 'package:firestore_troubleshooting/database/database.dart';
 import 'package:firestore_troubleshooting/models/main_topic.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
 import 'package:firestore_troubleshooting/widgets/add_main_topic.dart';
+import 'package:firestore_troubleshooting/widgets/main_topic_expansion_tile.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -62,60 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemCount: mainTopics.length,
                       itemBuilder: (context, mainTopicIndex) {
                         final mainTopic = mainTopics[mainTopicIndex];
-                        return ExpansionTile(
-                          initiallyExpanded: true,
-                          title: Text(mainTopic.name),
-                          children: [
-                            Row(children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: textController1,
-                                ),
-                              ),
-                              Expanded(
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        // createClass2Object(
-                                        //     textController1.text,
-                                        //     mainTopicIndex);
-                                        // textController1.clear();
-                                        // setState(() {});
-                                      },
-                                      child: const Text('Add Object')))
-                            ]),
-                            // StreamBuilder(
-                            //     stream: class2Stream,
-                            //     builder: (context, class2Snapshot) {
-                            //       if (class2Snapshot.hasError) {
-                            //         return const Text(
-                            //             'client snapshot has error');
-                            //       }
-                            //       if (class2Snapshot.connectionState ==
-                            //           ConnectionState.waiting) {
-                            //         return const CircularProgressIndicator();
-                            //       }
-                            //       class2Data = class2Snapshot.requireData;
-                            //       return ListView.builder(
-                            //           shrinkWrap: true,
-                            //           itemCount: class2Data.size,
-                            //           itemBuilder: (context, class2_index) {
-                            //             return ExpansionTile(
-                            //               initiallyExpanded: false,
-                            //               title: const Text('expansion tile 2'),
-                            //               children: [
-                            //                 ListView.builder(
-                            //                     shrinkWrap: true,
-                            //                     itemBuilder: (context, index3) {
-                            //                       return const ListTile(
-                            //                         title: Text('List tile'),
-                            //                       );
-                            //                     })
-                            //               ],
-                            //             );
-                            //           });
-                            //     })
-                          ],
-                        );
+                        return MainTopicExpansionTile(
+                            mainTopic: mainTopic, database: widget.database);
                       },
                     );
                   }),
