@@ -13,16 +13,23 @@ class AddMainTopic extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
+            decoration: InputDecoration.collapsed(
+
+                hintText: 'Main topic name..',
+                filled: true,
+                border: UnderlineInputBorder(),
+                hintStyle: Theme.of(context).textTheme.subtitle1),
             controller: textController1,
           ),
         ),
+        const SizedBox(width: 8.0,),
         Expanded(
             child: ElevatedButton(
                 onPressed: () {
                   createClass1Object(textController1.text);
                   textController1.clear();
                 },
-                child: const Text('Add Object')))
+                child: const Text('Add main topic')))
       ],
     );
   }
