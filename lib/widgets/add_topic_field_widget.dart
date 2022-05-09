@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AddTopicFieldWidget extends StatefulWidget {
-  AddTopicFieldWidget(
-      {Key? key, required this.onPressed, required this.buttonText})
+class AddTopicFieldWidget extends StatelessWidget {
+  AddTopicFieldWidget({Key? key, required this.onPressed, required this.buttonText})
       : super(key: key);
+  TextEditingController textController1 = TextEditingController();
   final Function(String) onPressed;
   final String buttonText;
-
-  @override
-  State<AddTopicFieldWidget> createState() => _AddTopicFieldWidgetState();
-}
-
-class _AddTopicFieldWidgetState extends State<AddTopicFieldWidget> {
-  final TextEditingController _topicNameField = TextEditingController();
-
-  @override
-  void dispose() {
-    _topicNameField.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +20,7 @@ class _AddTopicFieldWidgetState extends State<AddTopicFieldWidget> {
                   filled: true,
                   fillColor: Theme.of(context).primaryColor,
                   hintStyle: Theme.of(context).textTheme.subtitle1),
-              controller: _topicNameField,
+              controller: textController1,
             ),
           ),
           const SizedBox(
@@ -42,10 +29,10 @@ class _AddTopicFieldWidgetState extends State<AddTopicFieldWidget> {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                widget.onPressed(_topicNameField.text);
-                _topicNameField.clear();
+                onPressed(textController1.text);
+                textController1.clear();
               },
-              child: Text(widget.buttonText),
+              child: Text(buttonText),
             ),
           ),
         ],

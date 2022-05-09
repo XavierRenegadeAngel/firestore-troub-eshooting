@@ -16,24 +16,26 @@ class MainTopicExpansionTile extends StatefulWidget {
 }
 
 class _MainTopicExpansionTileState extends State<MainTopicExpansionTile> {
+  final TextEditingController _subTopicFieldController =
+      TextEditingController();
+
   @override
   void dispose() {
+    //Make sure you dispose your TextEditingControllers, FocusNodes etc.  For
+    //more info check the docs for TextEditingController.
+    _subTopicFieldController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      //Always add a uniq Key for dismissible, or it will not work well.
       key: Key(widget.mainTopic.docID),
       onDismissed: (direction) async {
         await widget.database.deleteMainTopic(mainTopic: widget.mainTopic);
       },
       child: ExpansionTile(
-        leading: const Icon(Icons.view_headline_rounded),
-        tilePadding: const EdgeInsets.all(8.0),
-        childrenPadding: const EdgeInsets.only(left: 16.0),
-        initiallyExpanded: false,
+        initiallyExpanded: true,
         title: Text(widget.mainTopic.name),
         children: [
           AddTopicFieldWidget(
@@ -46,44 +48,37 @@ class _MainTopicExpansionTileState extends State<MainTopicExpansionTile> {
                 );
               },
               buttonText: 'Add subtopic'),
-          StreamBuilder<List<SubTopic>>(
-            stream:
-                widget.database.subTopicsStream(mainTopic: widget.mainTopic),
-            initialData: const <SubTopic>[],
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('client snapshot has error');
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: Text('Empty'),
-                );
-              }
-              final subTopicsList = snapshot.data ?? [];
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: subTopicsList.length,
-                itemBuilder: (context, subTopicIndex) {
-                  final subTopic = subTopicsList[subTopicIndex];
-                  return ExpansionTile(
-                    initiallyExpanded: false,
-                    title: Text(subTopic.name),
-                    childrenPadding: const EdgeInsets.only(left: 16.0),
-                    children: [
-                      ListView(shrinkWrap: true, children: const [
-                        ListTile(
-                          title: Text('Teszt tile'),
-                        )
-                      ])
-                    ],
-                  );
-                },
-              );
-            },
-          )
+          // StreamBuilder(
+          //     stream: class2Stream,
+          //     builder: (context, class2Snapshot) {
+          //       if (class2Snapshot.hasError) {
+          //         return const Text(
+          //             'client snapshot has error');
+          //       }
+          //       if (class2Snapshot.connectionState ==
+          //           ConnectionState.waiting) {
+          //         return const CircularProgressIndicator();
+          //       }
+          //       class2Data = class2Snapshot.requireData;
+          //       return ListView.builder(
+          //           shrinkWrap: true,
+          //           itemCount: class2Data.size,
+          //           itemBuilder: (context, class2_index) {
+          //             return ExpansionTile(
+          //               initiallyExpanded: false,
+          //               title: const Text('expansion tile 2'),
+          //               children: [
+          //                 ListView.builder(
+          //                     shrinkWrap: true,
+          //                     itemBuilder: (context, index3) {
+          //                       return const ListTile(
+          //                         title: Text('List tile'),
+          //                       );
+          //                     })
+          //               ],
+          //             );
+          //           });
+          //     })
         ],
       ),
     );

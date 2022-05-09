@@ -17,6 +17,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   TextEditingController textController1 = TextEditingController();
   final Stream<QuerySnapshot> class1Stream = FirebaseFirestore.instance
       .collection('users')
@@ -67,21 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   }
                   final mainTopics = snapshot.data ?? [];
-                  return ListView.separated(
-                    padding: const EdgeInsets.all(8.0),
+                  return ListView.builder(
                     shrinkWrap: true,
                     itemCount: mainTopics.length,
                     itemBuilder: (context, mainTopicIndex) {
                       final mainTopic = mainTopics[mainTopicIndex];
                       return MainTopicExpansionTile(
                           mainTopic: mainTopic, database: widget.database);
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Divider(color: Theme.of(context).primaryColor,
-                        thickness: 2.0,),
-                      );
                     },
                   );
                 }),
