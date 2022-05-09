@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_troubleshooting/main.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
 
-class Class2 {
+class SubTopic {
   late var name;
   late var docID;
-  Class2({required this.name, required this.docID});
+  SubTopic({required this.name, required this.docID});
 
   Map<String, dynamic> toJson() => {'name': name, 'docID': docID};
-  Class2 fromJson(Map<String, dynamic> json) =>
-      Class2(name: ['name'], docID: ['docID']);
+  SubTopic fromJson(Map<String, dynamic> json) =>
+      SubTopic(name: ['name'], docID: ['docID']);
 }
 
 Future createClass2Object(name, class1_index) async {
@@ -21,7 +21,7 @@ Future createClass2Object(name, class1_index) async {
       .collection('Class 2 Objects')
       .doc();
 
-  final Class2Object = Class2(name: name, docID: Class2_ref.id);
+  final Class2Object = SubTopic(name: name, docID: Class2_ref.id);
   final json = Class2Object.toJson();
   await Class2_ref.set(json);
 }
