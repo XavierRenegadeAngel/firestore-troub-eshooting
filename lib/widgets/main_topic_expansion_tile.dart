@@ -57,6 +57,7 @@ class MainTopicExpansionTile extends StatelessWidget {
               }
               final subTopicsList = snapshot.data ?? [];
               return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(parent: ScrollPhysics()),
                 shrinkWrap: true,
                 itemCount: subTopicsList.length,
                 itemBuilder: (context, subTopicIndex) {

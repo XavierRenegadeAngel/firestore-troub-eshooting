@@ -16,7 +16,9 @@ class SubTopicExpansionTile extends StatelessWidget {
       title: Text(subTopic.name),
       childrenPadding: const EdgeInsets.only(left: 16.0),
       children: [
-        ListView(shrinkWrap: true, children: const [
+        ListView(shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(parent: ScrollPhysics()),
+            children: const [
           ListTile(
             title: Text('Teszt tile'),
           )
