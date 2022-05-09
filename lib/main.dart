@@ -78,17 +78,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         textController1.clear();
                         setState(() {});
                       },
-                      child: Text('Add Object')))
+                      child: const Text('Add Object')))
             ]),
             StreamBuilder(
                 stream: class1Stream,
                 builder: (context, class1Snapshot) {
                   if (class1Snapshot.hasError) {
-                    return Text('client snapshot has error');
+                    return const Text('client snapshot has error');
                   }
                   if (class1Snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   class1Data = class1Snapshot.requireData;
                   return ListView.builder(
@@ -124,18 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                               textController1.clear();
                                               setState(() {});
                                             },
-                                            child: Text('Add Object')))
+                                            child: const Text('Add Object')))
                                   ]),
                                   StreamBuilder(
                                       stream: class2Stream,
                                       builder: (context, class2Snapshot) {
                                         if (class2Snapshot.hasError) {
-                                          return Text(
+                                          return const Text(
                                               'client snapshot has error');
                                         }
                                         if (class2Snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return CircularProgressIndicator();
+                                          return const CircularProgressIndicator();
                                         }
                                         class2Data = class2Snapshot.requireData;
                                         return ListView.builder(
@@ -145,13 +145,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 (context, class2_index) {
                                               return ExpansionTile(
                                                 initiallyExpanded: false,
-                                                title: Text('expansion tile 2'),
+                                                title: const Text('expansion tile 2'),
                                                 children: [
                                                   ListView.builder(
                                                       shrinkWrap: true,
                                                       itemBuilder:
                                                           (context, index3) {
-                                                        return ListTile(
+                                                        return const ListTile(
                                                           title:
                                                               Text('List tile'),
                                                         );
@@ -162,14 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                       })
                                 ],
                               )
-                            : Text('no data');
+                            : const Text('no data');
                       });
                 }),
             ElevatedButton(
                 onPressed: () {
                   setState(() {});
                 },
-                child: Text('Set State'))
+                child: const Text('Set State'))
           ],
         ),
       ),
