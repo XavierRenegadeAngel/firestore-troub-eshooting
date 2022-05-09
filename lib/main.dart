@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_troubleshooting/models/class1.dart';
 import 'package:firestore_troubleshooting/services/auth_service.dart';
-import 'package:firestore_troubleshooting/widgets/add_object_class1_field.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             .textTheme
             .apply(bodyColor: Colors.white, displayColor: Colors.white),
         splashColor: Colors.grey[800],
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Firestore Troubleshooting'),
     );
@@ -60,107 +60,117 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
         title: Text(widget.title),
-        bottom: PreferredSize(preferredSize: const Size.fromHeight(40.0),
-
-        child: AddObjectClass1Field())
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              StreamBuilder(
-                  stream: class1Stream,
-                  builder: (context, class1Snapshot) {
-                    if (class1Snapshot.hasError) {
-                      return const Text('client snapshot has error');
-                    }
-                    if (class1Snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    }
-                    class1Data = class1Snapshot.requireData;
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: class1Data.size,
-                        itemBuilder: (context, class1_index) {
-                          final Stream<QuerySnapshot> class2Stream =
-                              FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(AuthService().currentUser?.uid)
-                                  .collection('Class 1 Objects')
-                                  .doc(class1Data.docs[class1_index]['docID'])
-                                  .collection('Class 2 Objects')
-                                  .snapshots();
-                          return class1Data.size > 0
-                              ? ExpansionTile(
-                                  initiallyExpanded: true,
-                                  title:
-                                      Text(class1Data.docs[class1_index]['name']),
-                                  children: [
-                                    Row(children: [
-                                      Expanded(
-                                        child: TextField(
-                                          controller: textController1,
-                                        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Row(children: [
+              Expanded(
+                child: TextField(
+                  controller: textController1,
+                ),
+              ),
+              Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        createClass1Object(textController1.text);
+                        textController1.clear();
+                        setState(() {});
+                      },
+                      child: const Text('Add Object')))
+            ]),
+            StreamBuilder(
+                stream: class1Stream,
+                builder: (context, class1Snapshot) {
+                  if (class1Snapshot.hasError) {
+                    return const Text('client snapshot has error');
+                  }
+                  if (class1Snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+                  class1Data = class1Snapshot.requireData;
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: class1Data.size,
+                      itemBuilder: (context, class1_index) {
+                        final Stream<QuerySnapshot> class2Stream =
+                            FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(AuthService().currentUser?.uid)
+                                .collection('Class 1 Objects')
+                                .doc(class1Data.docs[class1_index]['docID'])
+                                .collection('Class 2 Objects')
+                                .snapshots();
+                        return class1Data.size > 0
+                            ? ExpansionTile(
+                                initiallyExpanded: true,
+                                title:
+                                    Text(class1Data.docs[class1_index]['name']),
+                                children: [
+                                  Row(children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: textController1,
                                       ),
-                                      Expanded(
-                                          child: ElevatedButton(
-                                              onPressed: () {
-                                                createClass2Object(
-                                                    textController1.text,
-                                                    class1_index);
-                                                textController1.clear();
-                                                setState(() {});
-                                              },
-                                              child: const Text('Add Object')))
-                                    ]),
-                                    StreamBuilder(
-                                        stream: class2Stream,
-                                        builder: (context, class2Snapshot) {
-                                          if (class2Snapshot.hasError) {
-                                            return const Text(
-                                                'client snapshot has error');
-                                          }
-                                          if (class2Snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return const CircularProgressIndicator();
-                                          }
-                                          class2Data = class2Snapshot.requireData;
-                                          return ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: class2Data.size,
-                                              itemBuilder:
-                                                  (context, class2_index) {
-                                                return ExpansionTile(
-                                                  initiallyExpanded: false,
-                                                  title: const Text('expansion tile 2'),
-                                                  children: [
-                                                    ListView.builder(
-                                                        shrinkWrap: true,
-                                                        itemBuilder:
-                                                            (context, index3) {
-                                                          return const ListTile(
-                                                            title:
-                                                                Text('List tile'),
-                                                          );
-                                                        })
-                                                  ],
-                                                );
-                                              });
-                                        })
-                                  ],
-                                )
-                              : const Text('no data');
-                        });
-                  }),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Set State'))
-            ],
-          ),
+                                    ),
+                                    Expanded(
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              createClass2Object(
+                                                  textController1.text,
+                                                  class1_index);
+                                              textController1.clear();
+                                              setState(() {});
+                                            },
+                                            child: const Text('Add Object')))
+                                  ]),
+                                  StreamBuilder(
+                                      stream: class2Stream,
+                                      builder: (context, class2Snapshot) {
+                                        if (class2Snapshot.hasError) {
+                                          return const Text(
+                                              'client snapshot has error');
+                                        }
+                                        if (class2Snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const CircularProgressIndicator();
+                                        }
+                                        class2Data = class2Snapshot.requireData;
+                                        return ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: class2Data.size,
+                                            itemBuilder:
+                                                (context, class2_index) {
+                                              return ExpansionTile(
+                                                initiallyExpanded: false,
+                                                title: const Text('expansion tile 2'),
+                                                children: [
+                                                  ListView.builder(
+                                                      shrinkWrap: true,
+                                                      itemBuilder:
+                                                          (context, index3) {
+                                                        return const ListTile(
+                                                          title:
+                                                              Text('List tile'),
+                                                        );
+                                                      })
+                                                ],
+                                              );
+                                            });
+                                      })
+                                ],
+                              )
+                            : const Text('no data');
+                      });
+                }),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                child: const Text('Set State'))
+          ],
         ),
       ),
     );
