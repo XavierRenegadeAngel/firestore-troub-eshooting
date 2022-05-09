@@ -14,6 +14,7 @@ class Database {
     final mainTopicsStream = mainTopicsRef.snapshots().map((collSnapshot) {
       return collSnapshot.docs.map((docSnapshot) {
         final docData = docSnapshot.data();
+       // final docID = docSnapshot.id;
         final mainTopic = MainTopic.fromJson(docData);
         return mainTopic;
       }).toList();
@@ -72,7 +73,7 @@ class Database {
       final subTopicID = subTopic.docID;
       final docReference = _fireStore.doc(
           'users/$userID/Class 1 Objects/${mainTopicDocID}/subTopics/${subTopicID}');
-      return docReference.set(mainTopic.toJson());
+      return docReference.set(subTopic.toJson());
     } on FirebaseException catch (error) {
       print(
           'Error setting document, ${error.code}, ${error.message}, ${error.stackTrace}');
